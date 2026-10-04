@@ -11,4 +11,12 @@
 1. Go 的部分(後端) : 加入 get SSE 的服務 提供 RFC3339 的當下時間每一秒回傳
 2. Vue 的部分(前端) : 製作 `EventSource` 接起後端的 message
 
+## demo-2 : 改用 fetch 處理 ReadableStream 處理 後端為 post SSE
 
+> objective : 
+Vue 的部分(前端) : EventSource -> Fetch 並且 console 出 後端的 stream 結果
+
+## demo-3 : 處理前端收到的訊息
+
+> objective : 
+Vue 的部分(前端) : 整理改為 fetch 的資料處理問題
