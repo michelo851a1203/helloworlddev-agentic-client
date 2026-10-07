@@ -13,10 +13,12 @@
 
 ## demo-2 : 改用 fetch 處理 ReadableStream 處理 後端為 post SSE
 
-> objective : 
+> objective :  
+
 Vue 的部分(前端) : EventSource -> Fetch 並且 console 出 後端的 stream 結果
 
 ## demo-3 : 處理前端收到的訊息
 
-> objective : 
+> objective :   
+
 Vue 的部分(前端) : 整理改為 fetch 的資料處理問題

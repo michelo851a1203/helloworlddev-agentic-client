@@ -21,13 +21,9 @@ func handleSSE(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	flusher, ok := w.(http.Flusher)
-	if !ok {
-		http.Error(w, "Stream Not Support", http.StatusInternalServerError)
-		return
-	}
+	rc := http.NewResponseController(w)
 	w.WriteHeader(http.StatusOK)
-	flusher.Flush()
+	rc.Flush()
 
 	ctx := r.Context()
 
@@ -43,7 +39,7 @@ func handleSSE(w http.ResponseWriter, r *http.Request) {
 			rawMessage := t.Format(time.RFC3339)
 			message := fmt.Sprintf("event: message\ndata: %s\n\n", rawMessage)
 			w.Write([]byte(message))
-			flusher.Flush()
+			rc.Flush()
 		}
 	}
 }

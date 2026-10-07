@@ -21,11 +21,7 @@ func handleSSE(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	flusher, ok := w.(http.Flusher)
-	if !ok {
-		http.Error(w, "Stream Not Support", http.StatusInternalServerError)
-		return
-	}
+	flusher := http.NewResponseController(w)
 	w.WriteHeader(http.StatusOK)
 	flusher.Flush()
 

@@ -19,18 +19,38 @@ func handleSSE(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Connection", "keep-alive")
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	// TODO : 提示，這裡需要寫個迴圈
-	// 跟時間有關的 可以用 time.NewTicker 這樣就可以每秒送
-	// rc := http.NewResponseController(w)
-	// rc.Flush() // 需要去判斷是否支援 event-stream
-	// 送出去後記得後面要 Flush 提示小精靈就說到這囉 😃加油加油!
+
+	rc := http.NewResponseController(w)
+	w.WriteHeader(http.StatusOK)
+	rc.Flush()
+
+	ctx := r.Context()
+
+	// 這段不需要了
+	// ticker := time.NewTicker(1 * time.Second)
+	// defer ticker.Stop()
+	//
+	// for {
+	// 	select {
+	// 	case <-ctx.Done():
+	// 		fmt.Println("使用者斷開")
+	// 		return
+	// 	case t := <-ticker.C:
+	// 		rawMessage := t.Format(time.RFC3339)
+	// 		message := fmt.Sprintf("event: message\ndata: %s\n\n", rawMessage)
+	// 		w.Write([]byte(message))
+	// 		rc.Flush()
+	// 	}
+	// }
+	// TODO: 從這開始做吧😃
+	// 記得這裡要接 prompt 的 request 唷
 }
 
 func main() {
 	router := http.NewServeMux()
 	router.HandleFunc("GET /", handleRoot)
-	router.HandleFunc("GET /sse", handleSSE)
-	fmt.Println("run on http://localhost:8080")
+	router.HandleFunc("POST /sse", handleSSE) // 我幫你改成 POST 了 😊
+	fmt.Println("run on http://localhost:8080/sse")
 	server := &http.Server{
 		Addr:    ":8080",
 		Handler: router,
