@@ -22,3 +22,9 @@ Vue 的部分(前端) : EventSource -> Fetch 並且 console 出 後端的 stream
 > objective :   
 
 Vue 的部分(前端) : 整理改為 fetch 的資料處理問題
+
+## demo-4 : 處理後端收到的訊息
+
+> objective :   
+
+Golang 的部分(後端) : 後端改用 `AgentStep` 的方式把訊息傳出去
